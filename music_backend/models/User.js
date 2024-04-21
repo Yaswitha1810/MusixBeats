@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
-//How to Create a model
-// Step 1:require mongoose
-//Step 2:Create a mongoose schema(structure of users)
-//Step 3:Create a model
+const bcrypt = require("bcrypt");
 
 const User= new mongoose.Schema({
-    firstname:{
+    firstName:{
         type: String,
         required: true,
     },
@@ -18,24 +15,37 @@ const User= new mongoose.Schema({
         type:String,
         required: true,
     },
-    username: {
+    userName: {
         type: String,
         required: true,
     },
-    likedSongs:{
+    password: {
+        type: String,
+        required: true,
+    },
+    likedSongs:[{
         //We will change this to array later
         type: String,
         default:"",
-    },
-    likedPlaylists:{
+    }],
+    likedPlaylists:[{
         type: String,
         default:"",
-    },
-    subscribedArtists:{
+    }],
+    subscribedArtists:[{
         type: String,
         default:"",
-    },
+    }],
 
+});
+
+User.pre("save",async function(next){
+    if(!this.isModified("password")){
+        next();
+    }
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
 });
 
 const UserModel = mongoose.model("User", User);
