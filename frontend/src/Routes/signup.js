@@ -1,5 +1,4 @@
 import React from "react";
-import "./login.css";
 import "./logo.jpg";
 import TextInput from "../Components/TextInput";
 import PasswordInput from "../Components/PasswordInput";
