@@ -1,5 +1,3 @@
-import {Icon} from "@iconify/react";
-
 const TextWithHover = ({displayText,active}) => {
     return (
         <div className="flex items-center justify-start cursor-pointer">

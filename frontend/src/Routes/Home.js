@@ -1,7 +1,35 @@
 import {Icon} from "@iconify/react";
 import IconText from "../Components/IconText";
 import TextWithHover from "../Components/TextWithHover";
-import PlaylistView from "../Components/PlaylistView";
+//import PlaylistView from "../Components/PlaylistView";
+
+const focusCardsData = [
+    {
+        title: "Peaceful Piano",
+        description: "Relax and indulge with beautiful piano pieces",
+        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJDmnqtYzfGEr69dI-UboEhh3BM_fdZvpX19Ij1D7z-y2FOHGcTAryEZ4WnDHK1CM4m9c&usqp=CAU",
+    },
+    {
+        title: "Deep Focus",
+        description: "Keep calm and focus with this music",
+        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJDmnqtYzfGEr69dI-UboEhh3BM_fdZvpX19Ij1D7z-y2FOHGcTAryEZ4WnDHK1CM4m9c&usqp=CAU",
+    },
+    {
+        title: "Instrumental Study",
+        description: "Focus with soft study music in the background.",
+        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJDmnqtYzfGEr69dI-UboEhh3BM_fdZvpX19Ij1D7z-y2FOHGcTAryEZ4WnDHK1CM4m9c&usqp=CAU",
+    },
+    {
+        title: "Focus Flow",
+        description: "Up tempo instrumental hip hop beats",
+        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJDmnqtYzfGEr69dI-UboEhh3BM_fdZvpX19Ij1D7z-y2FOHGcTAryEZ4WnDHK1CM4m9c&usqp=CAU",
+    },
+    {
+        title: "Beats to think to",
+        description: "Focus with deep techno and tech house",
+        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJDmnqtYzfGEr69dI-UboEhh3BM_fdZvpX19Ij1D7z-y2FOHGcTAryEZ4WnDHK1CM4m9c&usqp=CAU",
+    },
+];
 
 const Home = () => {
     return ( 
@@ -46,7 +74,7 @@ const Home = () => {
         </div>
 
         {/* Main Content */}
-        <div className="h-full w-4/5 bg-app-black ">
+        <div className="h-full w-4/5 bg-app-black overflow-auto">
             <div className="navbar w-full h-1/10 bg-black bg-opacity-30 flex items-center justify-end">
                 <div className="w-1/2 flex h-full">
                     <div className="w-3/5 flex justify-around items-center">
@@ -62,13 +90,52 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className="content">
-                <PlaylistView />
+            <div className="content p-8 pt-0 overflow-auto">
+                <PlaylistView titleText={"Focus"} cardsData={focusCardsData}/>
+                <PlaylistView titleText={"Focus"} cardsData={focusCardsData}/>
+                <PlaylistView titleText={"Focus"} cardsData={focusCardsData}/>
             </div>
         </div>
 
     </div>
     )
+};
+
+const PlaylistView = ({titleText, cardsData}) =>{
+    return (
+        <div className="text-white mt-8">
+            <div className="text-2xl font-semibold mb-5">{titleText}</div>
+            <div className="w-full flex justify-between space-x-4">
+                {
+                    cardsData.map((item)=>{
+                        return(
+                            <Card 
+                                title={item.title}
+                                description={item.description}
+                                imgUrl={item.imgUrl}
+                            />
+                        ) ;
+                    })
+                }
+            </div>
+        </div>
+    );
+};
+
+const Card = ({title, description, imgUrl}) => {
+    return(
+        <div className="bg-black bg-opacity-40 w-1/5 p-4 rounded-lg ">
+            <div className="pb-4 pt-2">
+                <img 
+                    className="w-full rounded-md" 
+                    src={imgUrl}
+                    alt="pic"
+                />
+            </div>
+            <div className="text-white font-semibold py-3">{title}</div>
+            <div className="text-gray-500 text-sm">{description}</div>
+        </div>
+    );
 };
 
 export default Home;
