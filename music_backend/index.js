@@ -8,8 +8,9 @@ const songRoute = require("./routes/songRoutes");
 const playlistRoute = require("./routes/playlistRoutes");
 const cors = require("cors");
 const app = express();
-const port =6000;
+const port =3000;
 
+app.use(cors());
 app.use(express.json());
 dbConnect();
 setupJWT();
@@ -24,4 +25,4 @@ app.use("/playlist",playlistRoute);
 
 app.listen(port, () => {
     console.log("App is running on port "+port);
-})
+});

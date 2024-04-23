@@ -1,4 +1,6 @@
 import {useState} from "react";
+import {useCookies} from "react-cookie";
+import {Link, useNavigate} from "react-router-dom";
 import { Icon } from "@iconify/react";
 
 import TextInput from "../Components/TextInput";
@@ -10,6 +12,8 @@ const SignUpComponent = () =>{
     const [confirmEmail, setConfirmEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userName, setuserName] = useState("");
+    const [cookie, setCookie] = useCookies(["token"]);
+    const navigate = useNavigate();
 
     const signUp = async () => {
         if(email !== confirmEmail){
@@ -25,8 +29,14 @@ const SignUpComponent = () =>{
         );
         if(response && !response.err){
             console.log(response);
+            const token = response.token;
+            const date = new Date();
+            date.setDate(date.getDate()+30);
+            setCookie("token",token, {path: "/", experies: date});
+            alert("Success");
+            navigate("/home");
         }else{
-            console.log("fail");
+            alert("fail");
         }
     }
     return (
@@ -85,8 +95,7 @@ const SignUpComponent = () =>{
                     Already have an account?
                 </div>
                 <div className="border border-gray-500 text-gray-500 w-full flex items-center justify-center py-4 rounded-full font-bold">
-                    Login
-                    {/* <Link to="/login">Log In FOR SPOTIFY</Link> */}
+                    <Link to="/login">Log In FOR SPOTIFY</Link>
                 </div>
             </div>
         </div>

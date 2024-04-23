@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 import TextInput from "../Components/TextInput";
 import PasswordInput from "../Components/PasswordInput";
 
@@ -46,8 +47,7 @@ const LoginComponent = () =>{
                     Don't have an account?
                 </div>
                 <div className="border border-gray-500 text-gray-500 w-full flex items-center justify-center py-4 rounded-full font-bold">
-                    SIGN UP FOR MUSIXBEATS
-                    {/* <Link to="/signup">SIGN UP FOR SPOTIFY</Link> */}
+                    <Link to="/signup">SIGN UP FOR MUSIXBEATS</Link>
                 </div>
             </div>
         </div>
