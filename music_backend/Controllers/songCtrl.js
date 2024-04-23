@@ -2,7 +2,6 @@ const express = require("express");
 const passport = require("passport");
 const Song = require("../models/Song");
 const User = require("../models/User");
-//To create a song
 const createCtrl = async (req,res)=>{
     const {name, thumbnail, track} = req.body;
     if(!name || !thumbnail || !track) {
