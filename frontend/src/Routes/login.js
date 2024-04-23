@@ -17,7 +17,7 @@ const LoginComponent = () =>{
             <div className="inputRegion w-1/3 py-10 flex items-center justify-center flex-col">
                 
                 <div className="font-bold mb-4">
-                    To continue, log in to Spotify.
+                    To continue, log in to MusixBeats.
                 </div>
                 
                 <TextInput
