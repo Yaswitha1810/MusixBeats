@@ -1,40 +1,32 @@
-import {useState, useEffect} from "react";
+import {useContext, useState, useEffect} from "react";
 import {Icon} from "@iconify/react";
 import IconText from "../Components/IconText";
 import TextWithHover from "../Components/TextWithHover";
 import { Howl, Howler } from 'howler';
-const focusCardsData = [
-    {
-        title: "Peaceful Piano",
-        description: "Relax and indulge with beautiful piano pieces",
-        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJDmnqtYzfGEr69dI-UboEhh3BM_fdZvpX19Ij1D7z-y2FOHGcTAryEZ4WnDHK1CM4m9c&usqp=CAU",
-    },
-    {
-        title: "Deep Focus",
-        description: "Keep calm and focus with this music",
-        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJDmnqtYzfGEr69dI-UboEhh3BM_fdZvpX19Ij1D7z-y2FOHGcTAryEZ4WnDHK1CM4m9c&usqp=CAU",
-    },
-    {
-        title: "Instrumental Study",
-        description: "Focus with soft study music in the background.",
-        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJDmnqtYzfGEr69dI-UboEhh3BM_fdZvpX19Ij1D7z-y2FOHGcTAryEZ4WnDHK1CM4m9c&usqp=CAU",
-    },
-    {
-        title: "Focus Flow",
-        description: "Up tempo instrumental hip hop beats",
-        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJDmnqtYzfGEr69dI-UboEhh3BM_fdZvpX19Ij1D7z-y2FOHGcTAryEZ4WnDHK1CM4m9c&usqp=CAU",
-    },
-    {
-        title: "Beats to think to",
-        description: "Focus with deep techno and tech house",
-        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJDmnqtYzfGEr69dI-UboEhh3BM_fdZvpX19Ij1D7z-y2FOHGcTAryEZ4WnDHK1CM4m9c&usqp=CAU",
-    },
-];
+import songContext from "../contexts/songContext";
+
+
 
 const LoggedInContainer = ({children}) => {
     const [soundPlayed,setSoundPlayed]=useState(null);
     const [isPaused, setIsPaused] =useState(true);
-    const playSound =(songSrc) =>{
+
+    const {currentSong, setCurrentSong} = useContext(songContext);
+
+    useEffect(()=>{
+       if(!currentSong){
+          return;
+       }
+       changeSong(currentSong.track);
+    },[currentSong]);
+
+    const playSound = ()=>{
+       if(!soundPlayed){
+        return;
+       }
+       soundPlayed.play();
+    }
+    const changeSong =(songSrc) =>{
         if(soundPlayed){
             soundPlayed.stop();
         }
@@ -44,6 +36,7 @@ const LoggedInContainer = ({children}) => {
         });
         setSoundPlayed(sound);
         sound.play();
+        setIsPaused(false);
     };
     const pauseSound =() => {
         soundPlayed.pause();
@@ -51,20 +44,17 @@ const LoggedInContainer = ({children}) => {
     const togglePlayPause = () => {
        if (isPaused){
         playSound();
+        
         setIsPaused(false);
-       }
-       
-    else{
+       }else{
         pauseSound();
         setIsPaused(true);
        }
-
     };
 
-    return ( 
-        
-    <div className="h-full w-full bg-app-black">
-        <div className="h-9/10 w-full flex">
+return (         
+<div className="h-full w-full bg-app-black">
+    <div className={'${currentSong ? "h-9/10" : "h-full"} w-full flex'}>
         
         {/* //background - black */}
         {/* SideBar */}
@@ -76,9 +66,10 @@ const LoggedInContainer = ({children}) => {
                 <IconText 
                     iconName={"ic:round-home"} 
                     displayText={"Home"}
-                    
+                    active
+                    targetLink={"/home"}
                 />
-                <IconText 
+                 <IconText
                     iconName={"mingcute:search-line"} 
                     displayText={"Search"}
                 />
@@ -89,6 +80,7 @@ const LoggedInContainer = ({children}) => {
                 <IconText 
                     iconName={"material-symbols:library-music-sharp"} 
                     displayText={"My Music"}
+                    targetLink="/myMusic"
                 />
             </div>
             <div className="pt-5">
@@ -128,50 +120,67 @@ const LoggedInContainer = ({children}) => {
                 </div>
             </div>
             <div className="content p-8 pt-0 overflow-auto">
+                {/* <PlaylistView titleText={"Focus"} cardsData={focusCardsData}/>
+                <PlaylistView titleText={"Focus"} cardsData={focusCardsData}/>
+                <PlaylistView titleText={"Focus"} cardsData={focusCardsData}/> */}
                 {children}
-                <PlaylistView titleText={"Focus"} cardsData={focusCardsData}/>
-                <PlaylistView titleText={"Focus"} cardsData={focusCardsData}/>
-                <PlaylistView titleText={"Focus"} cardsData={focusCardsData}/>
             </div>
         </div>
-        </div>
-        <div className="w-full h-1/10 bg-black bg-opacity-30 text-white flex items-center px-4">
-        <img
-        src="https://img.freepik.com/free-photo/abstract-watercolor-guitar-exploding-with-colorful-motion-generated-by-ai_188544-19725.jpg"
-        alt="currentSongThumbail"
-        className="h-14 w-14 rounded"
-        />
-        <div className="pl-4">
-            <div className="text-sm hover:underline cursor-pointer">curtains</div>
-            <div className="text-xs text-gray-500 hover:underline cursor-pointer">ed see</div>
+    </div>
+    
+      {  currentSong && (
+    
+    <div className="w-full h-1/10 bg-black bg-opacity-30 text-white flex items-center px-4">
+        <div className="w-1/4 flex items-center">
+            <img
+                src={currentSong.thumbnail}
+                alt="currentSongThumbail"
+                className="h-14 w-14 rounded"
+            />
+            <div className="pl-4">
+                <div className="text-sm hover:underline cursor-pointer">
+                    {currentSong.name}
+                </div>
+                <div className="text-xs text-gray-500 hover:underline cursor-pointer">
+                    {currentSong.artist.userName}
+                </div>
+            </div>
         </div>
         <div className="w-1/3 flex justify-center  h-full flex-col items-center ">
-            <div className="flex w-1/2 justify between  items-center ">
-               
-                <Icon icon="ph:shuffle-fill"
-                fontSize={30}
-                className="cursor-pointer text-gray-500  hover:text-white"/>
-                <Icon icon="mdi:skip-previous-outline"
-                fontSize={30}
-                className="cursor-pointer text-gray-500  hover:text-white"/>
-                <Icon icon="ic:baseline-pause-circle"
-                fontSize={50}
-                className="cursor-pointer text-gray-500  hover:text-white"
-                onClick={togglePlayPause} 
+            <div className="flex w-1/2 justify-between  items-center ">
+                <Icon 
+                    icon="ph:shuffle-fill"
+                    fontSize={30}
+                    className="cursor-pointer text-gray-500  hover:text-white"
                 />
-                <Icon icon="mdi:skip-next-outline"
-                fontSize={30}
-                className="cursor-pointer text-gray-500  hover:text-white"/>
-                <Icon icon="ic:twotone-repeat"
-                fontSize={30}
-                className="cursor-pointer text-gray-500  hover:text-white"/>
+                <Icon 
+                    icon="mdi:skip-previous-outline"
+                    fontSize={30}
+                    className="cursor-pointer text-gray-500  hover:text-white"
+                />
+                <Icon 
+                    icon={isPaused ? "ic:baseline-play-circle" : "ic:baseline-pause-circle"}
+                    fontSize={50}
+                    className="cursor-pointer text-gray-500  hover:text-white"
+                    onClick={togglePlayPause} 
+                />
+                <Icon 
+                    icon="mdi:skip-next-outline"
+                    fontSize={30}
+                    className="cursor-pointer text-gray-500  hover:text-white"
+                />
+                <Icon 
+                    icon="ic:twotone-repeat"
+                    fontSize={30}
+                    className="cursor-pointer text-gray-500  hover:text-white"
+                />
             </div>
         </div>
-        <div className="w-1/3 flex justify-center"></div>
-        </div >
-        
-    </div>
-    )
+        <div className="w-1/4 flex justify-end">Time</div>
+    </div >    
+)}
+</div>
+)
 };
 
 
