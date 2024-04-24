@@ -1,3 +1,4 @@
+
 const express = require("express");
 const songRoute = express.Router();
 const passport = require("passport");
@@ -7,4 +8,3 @@ songRoute.get("/get/mysongs",passport.authenticate("jwt",{session: false}),getSo
 songRoute.get("/get/artist",passport.authenticate("jwt", {session: false}),getArtistCtrl);
 songRoute.get("/get/name", passport.authenticate("jwt", {session: false}),songNameCtrl);
 module.exports = songRoute;
-
