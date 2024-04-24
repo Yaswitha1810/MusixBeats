@@ -5,7 +5,6 @@ const CloudinaryUpload = ({setUrl,setName}) => {
   const uploadImageWidget = () => {
     let myUploadWidget = openUploadWidget(
       {
-        // make this private--- use env
         cloudName: "dwyipetoc",
         uploadPreset: cloudinary_upload_preset,
         maxImageWidth: 600,
@@ -15,7 +14,7 @@ const CloudinaryUpload = ({setUrl,setName}) => {
         if (!error && result.event === "success") {
             setUrl(result.info.secure_url);
             setName(result.info.original_filename);
-            console.log(result.info.original_filename);
+            //console.log(result.info.original_filename);
             //   props.onImageUpload(result.info.public_id);
         }
       }

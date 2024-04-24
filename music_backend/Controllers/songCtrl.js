@@ -19,7 +19,7 @@ const createCtrl = async (req,res)=>{
 
 const getSongsCtrl = async (req,res)=>{
     const currentUser = req.user;
-    const songs = await Song.find({artist: req.user._id});
+    const songs = await Song.find({artist: req.user._id}).populate("artist");
     return res.status(200).json({data: songs});
 }
 

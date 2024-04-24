@@ -42,7 +42,7 @@ const SignUpComponent = () =>{
     return (
         <div className="w-full h-full flex flex-col items-center">
             <div className="logo p-5 border-b border-solid border-gray-300 w-full flex justify-center"> 
-                <Icon icon="emojione:musical-score" /> 
+                <Icon icon="emojione:musical-score" width="50"/> 
                 <div className="font-bold mb-4 text-3xl">MusixBeats</div>
             </div>
             <div className="inputRegion w-1/3 py-10 flex items-center justify-center flex-col">

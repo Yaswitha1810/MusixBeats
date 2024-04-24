@@ -31,14 +31,7 @@ const MyMusicComponent = () => {
         };
         getData();
     }, []);
-    
-    
-   
-
-    
-       
-          
-       
+      
     return(
     <div className="h-full w-full flex">
         {/* //background - black */}
@@ -103,10 +96,14 @@ const MyMusicComponent = () => {
                 </div>
             </div>
             <div className="content p-8 pt-0 overflow-auto">
-           
+            <   div className="text-white text-xl font-semibold pb-4 pl-2 pt-8">
+                    My Songs
+                </div>
+                <div className="space-y-3 overflow-auto">
                     {songData.map((item) => {
                         return <SingleSongCard info={item} playSound={() => {}} />;
                     })}
+                </div>
             </div>
         </div>
 
