@@ -8,6 +8,9 @@ const {
 const userRoute = express.Router();
 
 userRoute.post("/signup",registerCtrl);
+userRoute.get("/signup",()=>{
+    console.log("jflwflvd");
+});
 userRoute.post("/login",loginCtrl);
 
 module.exports =  userRoute ;
