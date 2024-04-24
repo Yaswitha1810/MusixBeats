@@ -11,7 +11,7 @@ const LoginComponent = () =>{
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [ cookie, setCookie] = useCookies(["token"]);
-    const [navigate] = useNavigate();
+    const navigate = useNavigate();
 
     const login = async () => {
         const data = {email, password};
@@ -19,7 +19,6 @@ const LoginComponent = () =>{
             "/user/login",
             data
         );
-
         if(response && !response.err){
             console.log(response);
             const token = response.token;
@@ -32,7 +31,7 @@ const LoginComponent = () =>{
             alert("fail");
         }
     }
-    
+
     return (
         <div className="w-full h-full flex flex-col items-center">
             <div className="logo p-5 border-b border-solid border-gray-300 w-full flex justify-center"> 

@@ -1,7 +1,7 @@
 import {Icon} from "@iconify/react";
 import IconText from "../Components/IconText";
 import TextWithHover from "../Components/TextWithHover";
-//import PlaylistView from "../Components/PlaylistView";
+import PlaylistView from "../Components/PlaylistView";
 
 const focusCardsData = [
     {

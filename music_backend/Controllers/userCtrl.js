@@ -1,6 +1,5 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-//const router = express.Router();
 const User = require("../models/User");
 const { getToken } = require("../utils/jwtToken");
 
@@ -13,15 +12,11 @@ const registerCtrl = async(req,res) => {
             .status(403)
             .json({error: "A user with this email already exists"});
     }
-
     //creating a new user in the DB
-
     //const hashedPassword = bcrypt.hash(password, 10);
     const newUserData = {
         email, 
-        password, 
-        //firstName, 
-        //lastName, 
+        password,
         userName
     };
     const newUser = await User.create(newUserData);

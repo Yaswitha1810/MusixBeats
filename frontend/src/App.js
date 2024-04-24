@@ -22,7 +22,7 @@ function App() {
             <Route path="/signup" element={<SignUpComponent/> } />
             <Route path="/home" element={<Home/>} />
           </Routes>
-        )};
+        )}
       </BrowserRouter> 
     </div>
   );
