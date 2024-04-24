@@ -5,14 +5,15 @@ import TextWithHover from "../Components/TextWithHover";
 import TextInput from "../Components/TextInput";
 import CloudinaryUpload from "../Components/CloudinaryUpload";
 import { makeAuthenticatedPOSTRequest } from "../Util/serverHelper";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const UploadSongComponent = () => {
     const [name, setName] = useState("");
     const [thumbnail, setThumbnail] = useState("");
     const [playlistUrl, setPlaylistUrl] = useState("");
     const [uploadedSongFileName, setUploadedSongFileName] = useState("");
-    const navigate = Navigate
+    const navigate = useNavigate();
+
     const submitSong = async () => {
         const data = {name, thumbnail, track: playlistUrl};
         const response = await makeAuthenticatedPOSTRequest(
@@ -49,6 +50,10 @@ const UploadSongComponent = () => {
                 <IconText 
                     iconName={"lucide:library-big"} 
                     displayText={"Library"}
+                />
+                <IconText 
+                    iconName={"material-symbols:library-music-sharp"} 
+                    displayText={"My Music"}
                 />
             </div>
             <div className="pt-5">
@@ -112,7 +117,7 @@ const UploadSongComponent = () => {
                 </div>
                 <div className="py-5">
                     {uploadedSongFileName? (
-                        <div className="bg-white rounded-full p-3 w-1/3">{uploadedSongFileName.substring[0,35]}... </div>
+                        <div className="bg-white rounded-full p-3 w-1/3">{uploadedSongFileName}</div>
                     ):(
                     < CloudinaryUpload setUrl={setPlaylistUrl} setName={setUploadedSongFileName}/>
                     )}
