@@ -32,7 +32,9 @@ const focusCardsData = [
 
 const LoggedInHome = () => {
     return ( 
+        
     <div className="h-full w-full flex">
+        
         {/* //background - black */}
         {/* SideBar */}
         <div className="h-full w-1/5 bg-black flex flex-col justify-between pb-10">
@@ -75,6 +77,7 @@ const LoggedInHome = () => {
                     <div className="ml-2 text-sm font-semibold">English</div>
                 </div>
             </div>
+            <div className="w-full h-1/10 bg pink-400"></div>
         </div>
 
         {/* Main Content */}

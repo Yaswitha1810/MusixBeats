@@ -1,32 +1,31 @@
-import { useState } from "react";
+import {useState, useEffect} from "react";
 import {Icon} from "@iconify/react";
 import IconText from "../Components/IconText";
 import TextWithHover from "../Components/TextWithHover";
-import TextInput from "../Components/TextInput";
-import CloudinaryUpload from "../Components/CloudinaryUpload";
-import { makeAuthenticatedPOSTRequest } from "../Util/serverHelper";
-import { Navigate } from "react-router-dom";
+import {makeAuthenticatedGETRequest} from "../Util/serverHelper"
+import SingleSongCard from "../Components/SingleSongCard";
 
-const UploadSongComponent = () => {
-    const [name, setName] = useState("");
-    const [thumbnail, setThumbnail] = useState("");
-    const [playlistUrl, setPlaylistUrl] = useState("");
-    const [uploadedSongFileName, setUploadedSongFileName] = useState("");
-    const navigate = Navigate
-    const submitSong = async () => {
-        const data = {name, thumbnail, track: playlistUrl};
-        const response = await makeAuthenticatedPOSTRequest(
-            "/song/create",
-            data
-        );
-        if (response.err) {
-            alert("Could not create song");
-            return;
-        }
-        alert("Success");
-        navigate("/home");
-    };
 
+const MyMusicComponent = () => {
+    const [songData, setSongData] = useState([]);
+
+    useEffect(() => {
+        const getData = async () => {
+            const response = await makeAuthenticatedGETRequest(
+                "/song/get/mysongs"
+            );
+            setSongData(response.data);
+        };
+        getData();
+    }, []);
+    
+    
+   
+
+    
+       
+          
+       
     return(
     <div className="h-full w-full flex">
         {/* //background - black */}
@@ -40,7 +39,6 @@ const UploadSongComponent = () => {
                     iconName={"ic:round-home"} 
                     displayText={"Home"}
                     
-                    
                 />
                 <IconText 
                     iconName={"mingcute:search-line"} 
@@ -49,6 +47,11 @@ const UploadSongComponent = () => {
                 <IconText 
                     iconName={"lucide:library-big"} 
                     displayText={"Library"}
+                />
+                <IconText 
+                    iconName={"material-symbols:library-music-sharp"} 
+                    displayText={"My Music"}
+                    active
                 />
             </div>
             <div className="pt-5">
@@ -87,42 +90,10 @@ const UploadSongComponent = () => {
                 </div>
             </div>
             <div className="content p-8 pt-0 overflow-auto">
-                <div className="text-2xl font-semibold mb-5te text-white mt-8">
-                    Upload Your Music
-                </div>
-                <div className="w-2/3 flex space-x-3">
-                    <div className="w-1/2">
-                        <TextInput 
-                            label={"Name"}
-                            labelClassName={"text-white"} 
-                            placeholder={"Name"}  
-                            value={name}
-                            setValue={setName} 
-                        />
-                    </div>
-                    <div className="w-1/2">
-                        <TextInput 
-                            label={"Thumbnail"}
-                            labelClassName={"text-white"}
-                            placeholder={"Thumbnail"}
-                            value={thumbnail}
-                            setValue={setThumbnail}
-                        />
-                    </div>
-                </div>
-                <div className="py-5">
-                    {uploadedSongFileName? (
-                        <div className="bg-white rounded-full p-3 w-1/3">{uploadedSongFileName.substring[0,35]}... </div>
-                    ):(
-                    < CloudinaryUpload setUrl={setPlaylistUrl} setName={setUploadedSongFileName}/>
-                    )}
-                </div>
-                <div
-                    className="bg-white w-40 flex items-center justify-center p-4 rounded-full cursor-pointer font-semibold"
-                    onClick={submitSong}
-                    >
-                        Submit Song
-                </div>
+           
+                    {songData.map((item) => {
+                        return <SingleSongCard info={item} playSound={() => {}} />;
+                    })}
             </div>
         </div>
 
@@ -130,4 +101,4 @@ const UploadSongComponent = () => {
     )
 };
 
-export default UploadSongComponent;
+export default MyMusicComponent;
