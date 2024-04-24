@@ -4,10 +4,23 @@ import IconText from "../Components/IconText";
 import TextWithHover from "../Components/TextWithHover";
 import {makeAuthenticatedGETRequest} from "../Util/serverHelper"
 import SingleSongCard from "../Components/SingleSongCard";
+import { Howl, Howler } from 'howler';
 
 
 const MyMusicComponent = () => {
     const [songData, setSongData] = useState([]);
+    const [soundPlayed,setSoundPlayed]=useState(null);
+    const playSound =(songSrc) =>{
+        if(soundPlayed){
+            soundPlayed.stop();
+        }
+        let sound = new Howl({
+            src:[songSrc],
+            html5:true,
+        });
+        setSoundPlayed(sound);
+        sound.play();
+    }
 
     useEffect(() => {
         const getData = async () => {
