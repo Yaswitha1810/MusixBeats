@@ -117,7 +117,7 @@ const UploadSongComponent = () => {
                 </div>
                 <div className="py-5">
                     {uploadedSongFileName? (
-                        <div className="bg-white rounded-full p-3 w-1/3">{uploadedSongFileName}</div>
+                        <div className="bg-white rounded-full p-3 w-1/3">{uploadedSongFileName.substring(0,35)}...</div>
                     ):(
                     < CloudinaryUpload setUrl={setPlaylistUrl} setName={setUploadedSongFileName}/>
                     )}

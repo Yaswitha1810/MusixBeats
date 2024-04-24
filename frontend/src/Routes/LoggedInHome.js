@@ -45,7 +45,7 @@ const LoggedInHome = () => {
                 <IconText 
                     iconName={"ic:round-home"} 
                     displayText={"Home"}
-                    
+                    active
                 />
                 <IconText 
                     iconName={"mingcute:search-line"} 
