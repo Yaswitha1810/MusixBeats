@@ -19,15 +19,15 @@ function App() {
       <BrowserRouter>
         {cookie.token? ( 
           <songContext.Provider value={{currentSong,setCurrentSong}}>
-          <Routes>
-            <Route path="*" element={<Navigate to="/home"/>}/>
-            <Route path='/home' element={<LoggedInHome/>} />
-            <Route path="/login" element={<LoginComponent/> } />
-            <Route path="/signup" element={<SignUpComponent/> } />
-            <Route path="/uploadSong" element={<UploadSongComponent/>}/>
-            <Route path="/myMusic" element={<MyMusicComponent/>}/>
-            <Route path="/search" element={<SearchPage/>}/>
-          </Routes>
+            <Routes>
+              <Route path="*" element={<Navigate to="/home"/>}/>
+              <Route path='/home' element={<LoggedInHome/>} />
+              <Route path="/login" element={<LoginComponent/> } />
+              <Route path="/signup" element={<SignUpComponent/> } />
+              <Route path="/uploadSong" element={<UploadSongComponent/>}/>
+              <Route path="/myMusic" element={<MyMusicComponent/>}/>
+              <Route path="/search" element={<SearchPage/>}/>
+            </Routes>
           </songContext.Provider>
         ) : (
           <Routes>

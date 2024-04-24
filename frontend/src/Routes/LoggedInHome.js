@@ -52,19 +52,15 @@ const LoggedInHome = () => {
        if (isPaused){
         playSound();
         setIsPaused(false);
-       }
-       
-    else{
+       }else{
         pauseSound();
         setIsPaused(true);
        }
-
     };
 
-    return ( 
-        
-    <div className="h-full w-full bg-app-black">
-        <div className="h-9/10 w-full flex">
+return (         
+<div className="h-full w-full bg-app-black">
+    <div className="h-9/10 w-full flex">
         
         {/* //background - black */}
         {/* SideBar */}
@@ -133,44 +129,53 @@ const LoggedInHome = () => {
                 <PlaylistView titleText={"Focus"} cardsData={focusCardsData}/>
             </div>
         </div>
-        </div>
-        <div className="w-full h-1/10 bg-black bg-opacity-30 text-white flex items-center px-4">
-        <img
-        src="https://img.freepik.com/free-photo/abstract-watercolor-guitar-exploding-with-colorful-motion-generated-by-ai_188544-19725.jpg"
-        alt="currentSongThumbail"
-        className="h-14 w-14 rounded"
-        />
-        <div className="pl-4">
-            <div className="text-sm hover:underline cursor-pointer">curtains</div>
-            <div className="text-xs text-gray-500 hover:underline cursor-pointer">ed see</div>
-        </div>
-        <div className="w-1/3 flex justify-center  h-full flex-col items-center ">
-            <div className="flex w-1/2 justify between  items-center ">
-               
-                <Icon icon="ph:shuffle-fill"
-                fontSize={30}
-                className="cursor-pointer text-gray-500  hover:text-white"/>
-                <Icon icon="mdi:skip-previous-outline"
-                fontSize={30}
-                className="cursor-pointer text-gray-500  hover:text-white"/>
-                <Icon icon="ic:baseline-pause-circle"
-                fontSize={50}
-                className="cursor-pointer text-gray-500  hover:text-white"
-                onClick={togglePlayPause} 
-                />
-                <Icon icon="mdi:skip-next-outline"
-                fontSize={30}
-                className="cursor-pointer text-gray-500  hover:text-white"/>
-                <Icon icon="ic:twotone-repeat"
-                fontSize={30}
-                className="cursor-pointer text-gray-500  hover:text-white"/>
+    </div>
+    <div className="w-full h-1/10 bg-black bg-opacity-30 text-white flex items-center px-4">
+        <div className="w-1/4 flex items-center">
+            <img
+                src="https://img.freepik.com/free-photo/abstract-watercolor-guitar-exploding-with-colorful-motion-generated-by-ai_188544-19725.jpg"
+                alt="currentSongThumbail"
+                className="h-14 w-14 rounded"
+            />
+            <div className="pl-4">
+                <div className="text-sm hover:underline cursor-pointer">curtains</div>
+                <div className="text-xs text-gray-500 hover:underline cursor-pointer">ed see</div>
             </div>
         </div>
-        <div className="w-1/3 flex justify-center"></div>
-        </div >
-        
-    </div>
-    )
+        <div className="w-1/3 flex justify-center  h-full flex-col items-center ">
+            <div className="flex w-1/2 justify-between  items-center ">
+                <Icon 
+                    icon="ph:shuffle-fill"
+                    fontSize={30}
+                    className="cursor-pointer text-gray-500  hover:text-white"
+                />
+                <Icon 
+                    icon="mdi:skip-previous-outline"
+                    fontSize={30}
+                    className="cursor-pointer text-gray-500  hover:text-white"
+                />
+                <Icon 
+                    icon={isPaused ? "ic:baseline-play-circle" : "ic:baseline-pause-circle"}
+                    fontSize={50}
+                    className="cursor-pointer text-gray-500  hover:text-white"
+                    onClick={togglePlayPause} 
+                />
+                <Icon 
+                    icon="mdi:skip-next-outline"
+                    fontSize={30}
+                    className="cursor-pointer text-gray-500  hover:text-white"
+                />
+                <Icon 
+                    icon="ic:twotone-repeat"
+                    fontSize={30}
+                    className="cursor-pointer text-gray-500  hover:text-white"
+                />
+            </div>
+        </div>
+        <div className="w-1/4 flex justify-end">Time</div>
+    </div >        
+</div>
+)
 };
 
 const PlaylistView = ({titleText, cardsData}) =>{
