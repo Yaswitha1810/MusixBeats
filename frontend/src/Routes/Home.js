@@ -53,6 +53,10 @@ const Home = () => {
                     iconName={"lucide:library-big"} 
                     displayText={"Library"}
                 />
+                <IconText 
+                    iconName={"material-symbols:library-music-sharp"} 
+                    displayText={"My Music"}
+                />
             </div>
             <div className="pt-5">
                 <IconText 

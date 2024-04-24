@@ -53,9 +53,8 @@ const LoggedInHome = () => {
                     iconName={"lucide:library-big"} 
                     displayText={"Library"}
                 />
-                {/* Change Icon */}
                 <IconText 
-                    iconName={"lucide:library-big"} 
+                    iconName={"material-symbols:library-music-sharp"} 
                     displayText={"My Music"}
                 />
             </div>
