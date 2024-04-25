@@ -86,6 +86,7 @@ return (
                  <IconText
                     iconName={"mingcute:search-line"} 
                     displayText={"Search"}
+                    targetLink={"/search"}
                     active={curActiveScreen === "search"}
                 />
                 <IconText 

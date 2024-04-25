@@ -27,7 +27,7 @@ const getArtistCtrl = async (req,res)=>{
     const {artistId} = req.params;
 
     const artist = await User.findOne({_id: artistId});
-    console.log(artist);
+    //console.log(artist);
     if(!artist){
         return res.status(301).json({err: "Artist does not exist"});
     } 
@@ -38,9 +38,9 @@ const getArtistCtrl = async (req,res)=>{
 
 
 const songNameCtrl = async (req,res)=>{
-    const {songName} = req.body;
+    const {songName} = req.params;
 
-    const songs = await Song.find({name: songName});
+    const songs = await Song.find({name: songName}).populate("artist");
     return res.status(200).json({data: songs});
 }
 module.exports ={
