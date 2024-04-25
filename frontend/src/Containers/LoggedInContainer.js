@@ -1,4 +1,4 @@
-import {useContext, useState, useEffect} from "react";
+import {useContext, useState, useLayoutEffect, useRef} from "react";
 import {Icon} from "@iconify/react";
 import IconText from "../Components/IconText";
 import TextWithHover from "../Components/TextWithHover";
@@ -7,18 +7,32 @@ import songContext from "../contexts/songContext";
 
 
 
-const LoggedInContainer = ({children}) => {
-    const [soundPlayed,setSoundPlayed]=useState(null);
-    const [isPaused, setIsPaused] =useState(true);
+const LoggedInContainer = ({children, curActiveScreen}) => {
+    
 
-    const {currentSong, setCurrentSong} = useContext(songContext);
+    const {
+        currentSong, 
+        setCurrentSong, 
+        soundPlayed, 
+        setSoundPlayed, 
+        isPaused, 
+        setIsPaused
+    } = useContext(songContext);
 
-    useEffect(()=>{
+    const firstUpdate = useRef(true);
+
+    useLayoutEffect(()=>{
+
+        if(firstUpdate.current){
+            firstUpdate.current=false;
+            return;
+        }
        if(!currentSong){
           return;
        }
+      
        changeSong(currentSong.track);
-    },[currentSong]);
+    },[currentSong && currentSong.track]);
 
     const playSound = ()=>{
        if(!soundPlayed){
@@ -54,7 +68,7 @@ const LoggedInContainer = ({children}) => {
 
 return (         
 <div className="h-full w-full bg-app-black">
-    <div className={'${currentSong ? "h-9/10" : "h-full"} w-full flex'}>
+    <div className={`${currentSong ? "h-9/10" : "h-full"} w-full flex`}>
         
         {/* //background - black */}
         {/* SideBar */}
@@ -66,27 +80,31 @@ return (
                 <IconText 
                     iconName={"ic:round-home"} 
                     displayText={"Home"}
-                    active
                     targetLink={"/home"}
+                    active={curActiveScreen === "home"}
                 />
                  <IconText
                     iconName={"mingcute:search-line"} 
                     displayText={"Search"}
+                    active={curActiveScreen === "search"}
                 />
                 <IconText 
                     iconName={"lucide:library-big"} 
                     displayText={"Library"}
+                    active={curActiveScreen === "library"}
                 />
                 <IconText 
                     iconName={"material-symbols:library-music-sharp"} 
                     displayText={"My Music"}
                     targetLink="/myMusic"
+                    active={curActiveScreen === "myMusic"}
                 />
             </div>
             <div className="pt-5">
                 <IconText 
                     iconName={"material-symbols-light:add-box"} 
                     displayText={"Create Playlist"}
+                    
                 />
                 <IconText 
                     iconName={"iconoir:heart-solid"} 

@@ -13,12 +13,14 @@ import MyMusicComponent from "./Routes/UserMusic";
 
 function App() {
   const [currentSong, setCurrentSong] = useState(null);
+  const [soundPlayed,setSoundPlayed]=useState(null);
+  const [isPaused, setIsPaused] =useState(true);
   const [cookie, setCookie] = useCookies(["token"]);
   return (
     <div className="w-screen h-screen font-poppins"> 
       <BrowserRouter>
         {cookie.token? ( 
-          <songContext.Provider value={{currentSong,setCurrentSong}}>
+          <songContext.Provider value={{currentSong,setCurrentSong, soundPlayed, setSoundPlayed, isPaused, setIsPaused}}>
             <Routes>
               <Route path="*" element={<Navigate to="/home"/>}/>
               <Route path='/home' element={<LoggedInHome/>} />
