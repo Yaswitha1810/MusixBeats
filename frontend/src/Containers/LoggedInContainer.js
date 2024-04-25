@@ -4,11 +4,16 @@ import IconText from "../Components/IconText";
 import TextWithHover from "../Components/TextWithHover";
 import { Howl, Howler } from 'howler';
 import songContext from "../contexts/songContext";
+import CreatePlaylistModal from "../modals/CreatePlaylistModal";
+//import AddToPlaylistModal from "../modals/AddToPlaylistModal";
+//import {makeAuthenticatedPOSTRequest} from "../utils/serverHelpers";
 
 
 
 const LoggedInContainer = ({children, curActiveScreen}) => {
-    
+    const [createPlaylistModal,setCreatePlaylistModalOpen] =
+        useState(false);
+    const [AddToPlaylistModalOpen, setAddToPlaylistModalOpen] = useState(false);
 
     const {
         currentSong, 
@@ -33,6 +38,19 @@ const LoggedInContainer = ({children, curActiveScreen}) => {
       
        changeSong(currentSong.track);
     },[currentSong && currentSong.track]);
+
+    const addSongToPlaylist = async (playlistId) => {
+        const songId = currentSong._id;
+
+        const payload = {playlistId, songId};
+        const response = await makeAuthenticatedPOSTRequest(
+            "/playlist/add/song",
+            payload
+        );
+        if(response._id){
+            setAddToPlaylistModalOpen(false)
+        }
+    };
 
     const playSound = ()=>{
        if(!soundPlayed){
@@ -68,6 +86,13 @@ const LoggedInContainer = ({children, curActiveScreen}) => {
 
 return (         
 <div className="h-full w-full bg-app-black">
+    {createPlaylistModalOpen && (
+        <CreatePlaylistModal 
+            closeModal={()=>{
+                setCreatePlaylistModalOpen(false);
+            }}
+            />
+        )}
     <div className={`${currentSong ? "h-9/10" : "h-full"} w-full flex`}>
         
         {/* //background - black */}
@@ -92,6 +117,7 @@ return (
                     iconName={"lucide:library-big"} 
                     displayText={"Library"}
                     active={curActiveScreen === "library"}
+                    targetLink = {"/library"}
                 />
                 <IconText 
                     iconName={"material-symbols:library-music-sharp"} 
@@ -104,6 +130,9 @@ return (
                 <IconText 
                     iconName={"material-symbols-light:add-box"} 
                     displayText={"Create Playlist"}
+                    onClick={() => {
+                        setCreatePlaylistModalOpen(true);
+                    }}
                     
                 />
                 <IconText 

@@ -30,7 +30,14 @@ const createCtrl = async (req,res)=>{
     }
     return res.status(200).json(playlist);
 }   
+const meIdCtrl = async (req,res)=>{
+    const artistId = req.user._id;
 
+    const playlists = await Playlist.find({owner: artistId}).populate(
+        "owner"
+    );
+    return res.status(200).json({data: playlists});
+}
 const artistIdCtrl = async (req,res)=>{
     const artistId = req.params.artistId;
 

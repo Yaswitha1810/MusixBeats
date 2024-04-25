@@ -10,6 +10,7 @@ import UploadSongComponent from './Routes/UploadSong';
 import SearchPage from "./Routes/SearchPage";
 import songContext from './contexts/songContext';
 import MyMusicComponent from "./Routes/UserMusic";
+import Library from "./Routes/Library";
 
 function App() {
   const [currentSong, setCurrentSong] = useState(null);
@@ -22,6 +23,7 @@ function App() {
         {cookie.token? ( 
           <songContext.Provider value={{currentSong,setCurrentSong, soundPlayed, setSoundPlayed, isPaused, setIsPaused}}>
             <Routes>
+              <Route path = "/library" element = {<Library/>}/>
               <Route path="*" element={<Navigate to="/home"/>}/>
               <Route path='/home' element={<LoggedInHome/>} />
               <Route path="/login" element={<LoginComponent/> } />
