@@ -3,15 +3,20 @@ const passport = require("passport");
 const Song = require("../models/Song");
 const User = require("../models/User");
 const createCtrl = async (req,res)=>{
-    const {name, thumbnail, track} = req.body;
-    if(!name || !thumbnail || !track) {
+    const {name, thumbnail, track, movieName, trackLength} = req.body;
+    
+    if(!name || !movieName || !track ) {
         return res
              .status(301)
              .json({err: "Insufficient details to create song."});
     }
     //console.log(req.user?._id);
     const artist = req.user._id;
-    const songDetails = {name, thumbnail, track, artist};
+    const minutes =  Math.round(Math.round(trackLength)/60);
+    console.log(minutes);
+    const seconds = Math.round(trackLength)%60 ;
+    const length = (minutes - minutes%1) + ":" + seconds;;
+    const songDetails = {name, thumbnail, track, movieName, trackLength: length, artist};
     
     const createdSong = await Song.create(songDetails);
     return res.status(200).json(createdSong);

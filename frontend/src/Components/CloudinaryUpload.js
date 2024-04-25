@@ -1,7 +1,7 @@
 import { openUploadWidget } from "../Util/CloudinaryService";
 import { cloudinary_upload_preset } from "../config";
 
-const CloudinaryUpload = ({setUrl,setName}) => {
+const CloudinaryUpload = ({setUrl,setName,setThumbnail,setTrackLength}) => {
   const uploadImageWidget = () => {
     let myUploadWidget = openUploadWidget(
       {
@@ -14,7 +14,10 @@ const CloudinaryUpload = ({setUrl,setName}) => {
         if (!error && result.event === "success") {
             setUrl(result.info.secure_url);
             setName(result.info.original_filename);
-            //console.log(result.info.original_filename);
+            setThumbnail(result.info.thumbnail_url);
+            const track = Math.floor(result.info.duration);
+            setTrackLength(track);
+            console.log(result.info);
             //   props.onImageUpload(result.info.public_id);
         }
       }

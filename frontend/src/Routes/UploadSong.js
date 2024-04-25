@@ -9,18 +9,23 @@ import { useNavigate } from "react-router-dom";
 
 const UploadSongComponent = () => {
     const [name, setName] = useState("");
+    const [movieName, setMovieName] = useState("");
     const [thumbnail, setThumbnail] = useState("");
+    const [trackLength, setTrackLength] = useState(0);
     const [playlistUrl, setPlaylistUrl] = useState("");
     const [uploadedSongFileName, setUploadedSongFileName] = useState("");
+
+
     const navigate = useNavigate();
 
     const submitSong = async () => {
-        const data = {name, thumbnail, track: playlistUrl};
+        const data = {name, thumbnail, track: playlistUrl, movieName: movieName, trackLength: trackLength};
         const response = await makeAuthenticatedPOSTRequest(
             "/song/create",
             data
         );
         if (response.err) {
+            console.log(response.err);
             alert("Could not create song");
             return;
         }
@@ -39,9 +44,7 @@ const UploadSongComponent = () => {
             <div className="py-5">
                 <IconText 
                     iconName={"ic:round-home"} 
-                    displayText={"Home"}
-                    
-                    
+                    displayText={"Home"} 
                 />
                 <IconText 
                     iconName={"mingcute:search-line"} 
@@ -107,11 +110,11 @@ const UploadSongComponent = () => {
                     </div>
                     <div className="w-1/2">
                         <TextInput 
-                            label={"Thumbnail"}
+                            label={"MovieName"}
                             labelClassName={"text-white"}
-                            placeholder={"Thumbnail"}
-                            value={thumbnail}
-                            setValue={setThumbnail}
+                            placeholder={"MovieName"}
+                            value={movieName}
+                            setValue={setMovieName}
                         />
                     </div>
                 </div>
@@ -119,7 +122,7 @@ const UploadSongComponent = () => {
                     {uploadedSongFileName? (
                         <div className="bg-white rounded-full p-3 w-1/3">{uploadedSongFileName.substring(0,35)}...</div>
                     ):(
-                    < CloudinaryUpload setUrl={setPlaylistUrl} setName={setUploadedSongFileName}/>
+                    < CloudinaryUpload setUrl={setPlaylistUrl} setName={setUploadedSongFileName} setThumbnail={setThumbnail} setTrackLength={setTrackLength}/>
                     )}
                 </div>
                 <div

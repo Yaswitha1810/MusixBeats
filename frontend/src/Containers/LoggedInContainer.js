@@ -195,7 +195,7 @@ return (
                 />
             </div>
         </div>
-        <div className="w-1/4 flex justify-end">Time</div>
+        <div className="w-1/4 flex justify-end">{currentSong.trackLength}</div>
     </div >    
 )}
 </div>

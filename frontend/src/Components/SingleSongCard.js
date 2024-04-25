@@ -27,7 +27,7 @@ const SingleSongCard = ({info,playSound}) =>  {
                     </div>
                 </div>
                 <div className="w-1/6 flex items-center justify-center text-gray-400 text-sm">
-                    <div>3:44</div>
+                    <div>{info.trackLength}</div>
                 </div>
             </div>
         </div>
