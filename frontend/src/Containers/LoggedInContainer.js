@@ -5,7 +5,7 @@ import TextWithHover from "../Components/TextWithHover";
 import { Howl, Howler } from 'howler';
 import songContext from "../contexts/songContext";
 import CreatePlaylistModal from "../modals/CreatePlaylistModal";
-//import AddToPlaylistModal from "../modals/AddToPlaylistModal";
+import AddToPlaylistModal from "../modals/AddPlaylistModal";
 import {makeAuthenticatedPOSTRequest} from "../Util/serverHelper";
 
 
@@ -13,7 +13,8 @@ import {makeAuthenticatedPOSTRequest} from "../Util/serverHelper";
 const LoggedInContainer = ({children, curActiveScreen}) => {
     const [createPlaylistModalOpen,setCreatePlaylistModalOpen] =
         useState(false);
-    const [AddToPlaylistModalOpen, setAddToPlaylistModalOpen] = useState(false);
+    const [addToPlaylistModalOpen, setAddToPlaylistModalOpen] = 
+        useState(false);
 
     const {
         currentSong, 
@@ -91,6 +92,14 @@ return (
             closeModal={()=>{
                 setCreatePlaylistModalOpen(false);
             }}
+            />
+        )}
+        {addToPlaylistModalOpen && (
+            <AddToPlaylistModal 
+                closeModal={() => {
+                    setAddToPlaylistModalOpen(false);
+                }}
+                addSongToPlaylist={addSongToPlaylist}
             />
         )}
     <div className={`${currentSong ? "h-9/10" : "h-full"} w-full flex`}>
@@ -224,7 +233,21 @@ return (
                 />
             </div>
         </div>
-        <div className="w-1/4 flex justify-end">{currentSong.trackLength}</div>
+        <div className="w-1/4 flex justify-end pr-4 space-x-4 item-center">
+            <Icon 
+                icon="ic:round-playlist-add" 
+                fontSize={30}
+                className="cursor-pointer text-gray-500  hover:text-white"
+                onClick={() => {
+                    setAddToPlaylistModalOpen(true);
+                }}
+            />{currentSong.trackLength}
+            <Icon 
+                icon="ant-design:heart-outlined"
+                fontSize={25}
+                className="cursor-pointer text-gray-500  hover:text-white" 
+            />
+        </div>
     </div >    
 )}
 </div>
