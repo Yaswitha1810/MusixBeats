@@ -1,6 +1,6 @@
 import {Icon} from "@iconify/react";
 import {Link} from "react-router-dom";
-const IconText = ({iconName,displayText,active, targetLink, onclick}) => {
+const IconText = ({iconName,displayText,active, targetLink, onClick}) => {
     return (
         <Link to={targetLink} className="block">
         

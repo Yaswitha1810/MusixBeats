@@ -6,12 +6,12 @@ import { Howl, Howler } from 'howler';
 import songContext from "../contexts/songContext";
 import CreatePlaylistModal from "../modals/CreatePlaylistModal";
 //import AddToPlaylistModal from "../modals/AddToPlaylistModal";
-//import {makeAuthenticatedPOSTRequest} from "../utils/serverHelpers";
+import {makeAuthenticatedPOSTRequest} from "../Util/serverHelper";
 
 
 
 const LoggedInContainer = ({children, curActiveScreen}) => {
-    const [createPlaylistModal,setCreatePlaylistModalOpen] =
+    const [createPlaylistModalOpen,setCreatePlaylistModalOpen] =
         useState(false);
     const [AddToPlaylistModalOpen, setAddToPlaylistModalOpen] = useState(false);
 

@@ -4,7 +4,7 @@ import { makeAuthenticatedGETRequest } from "../Util/serverHelper";
 
 const Library = () => {
 
-    const [myPlaylists, setMyPlaylists] = useState([])
+    const [myPlaylists, setMyPlaylists] = useState([]);
 
     useEffect(() => {
         const getData = async () => {
@@ -21,7 +21,14 @@ const Library = () => {
             <div className="text-white text-xl pt-8">My Playlists</div>
             <div className="py-5 grid gap-5 grid-cols-5">
                 {myPlaylists.map(item => {
-                    return <Card key ={JSON.stringify(item)} title = {item.name} description="" imgUrl = {item.thumbnail}/>
+                    return (
+                        <Card 
+                            key ={JSON.stringify(item)} 
+                            title = {item.name} 
+                            description="" 
+                            imgUrl = {item.thumbnail}
+                        />
+                    );
                 })}
             </div>
         </LoggedInContainer>
