@@ -9,10 +9,17 @@ const Song =new mongoose.Schema({
         type: String,
         required: true,
     },
+    movieName: {
+        type: String,
+        required: false,
+    },
+    trackLength: {
+        type: String,
+        required: false,
+    },
     thumbnail: {
         type: String,
         required: false,
-
     },
     track :{
         type:String,
