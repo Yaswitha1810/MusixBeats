@@ -1,3 +1,4 @@
+import {useState} from "react";
 import TextInput from "../Components/TextInput";
 import { makeAuthenticatedPOSTRequest } from "../Util/serverHelper";
 
@@ -20,7 +21,9 @@ const CreatePlaylistModal = ({closeModal}) => {
             className = "absolute bg-black w-screen h-screen bg-opacity-50 flex justify-center items-center"
             onClick = {closeModal}
         >
-            <div className="bg-app-black w-1/3 rounded-md p-4" onclick={(e)=>{e.stopPropagation();
+            <div className="bg-app-black w-1/3 rounded-md p-4" 
+            onClick={(e) => {
+                    e.stopPropagation();
                 }}
             >
                 <div className="text-white mb-5 font-semibold text-lg">

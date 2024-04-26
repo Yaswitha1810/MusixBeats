@@ -2,6 +2,7 @@ const express = require("express");
 const passport = require("passport");
 const Song = require("../models/Song");
 const User = require("../models/User");
+const Playlist = require("../models/Playlist");
 
 const createCtrl = async (req,res)=>{
     const currentUser = req.user;
@@ -30,6 +31,7 @@ const createCtrl = async (req,res)=>{
     }
     return res.status(200).json(playlist);
 }   
+
 const meIdCtrl = async (req,res)=>{
     const artistId = req.user._id;
 
@@ -38,6 +40,7 @@ const meIdCtrl = async (req,res)=>{
     );
     return res.status(200).json({data: playlists});
 }
+
 const artistIdCtrl = async (req,res)=>{
     const artistId = req.params.artistId;
 
@@ -86,5 +89,6 @@ const addSongCtrl = async (req,res)=>{
         createCtrl,
         playlistIdCtrl,
         artistIdCtrl,
+        meIdCtrl,
         addSongCtrl
     };
